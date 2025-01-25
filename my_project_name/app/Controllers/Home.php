@@ -9,6 +9,10 @@ class Home extends BaseController
         return view('welcome_message');
     }
     public function memberRegistration(){
-        return view('member/registration');
+        $db = \Config\Database::connect();
+        $builder = $db->table('locations');
+        $taluks = $builder->get()->getResultArray();
+
+        return view('member/registration', ['taluks'=> $taluks]);
     }
 }

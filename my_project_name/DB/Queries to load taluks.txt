@@ -1,0 +1,7 @@
+LOAD DATA INFILE 'D:/Majid/Learnings/CI4-JML/my_project_name/DB/taluks.csv'
+INTO TABLE Locations
+FIELDS TERMINATED BY ','  -- Comma-separated values
+ENCLOSED BY '"'           -- Handle fields enclosed in double quotes (if applicable)
+LINES TERMINATED BY '\n'  -- Line breaks as row separators
+IGNORE 1 ROWS             -- Skip the header row
+(LocationName, District, Offices, RTOCodes); -- Columns to populate

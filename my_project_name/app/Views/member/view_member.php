@@ -67,7 +67,7 @@
         <p><strong>State:</strong> <?= esc($member['state']) ?></p>
         <p><strong>District:</strong> <?= esc($member['district']) ?></p>
         <p><strong>Pin:</strong> <?= esc($member['pin']) ?></p>
-        <p><strong>Taluk:</strong> <?= esc($member['taluk']) ?></p>
+        <p><strong>Taluk:</strong> <?= esc($member['taluk_name']) ?></p>
         <p><strong>Panchayath:</strong> <?= esc($member['panchayath']) ?></p>
         <p><strong>Aadhar:</strong> <?= esc($member['aadhar']) ?></p>
     </div>

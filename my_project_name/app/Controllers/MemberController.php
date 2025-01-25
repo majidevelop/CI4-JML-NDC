@@ -7,16 +7,29 @@ class MemberController extends Controller
 {
     public function listMembers()
     {
-        $memberModel = new MemberModel();
-        $members = $memberModel->findAll();
+        // $memberModel = new MemberModel();
+        // $members = $memberModel->findAll();
+
+        $db = \Config\Database::connect();
+    $builder = $db->table('members');
+    $builder->select('members.*, locations.LocationName as taluk_name');
+    $builder->join('locations', 'members.taluk = locations.ID', 'left'); // Left join to include members with no taluk set
+    $members = $builder->get()->getResultArray();
 
         return view('member/list_members', ['members' => $members]);
     }
 
     public function viewMember($id)
     {
-        $memberModel = new MemberModel();
-        $member = $memberModel->find($id);
+        // $memberModel = new MemberModel();
+        // $member = $memberModel->find($id);
+
+        $db = \Config\Database::connect();
+        $builder = $db->table('members');
+        $builder->select('members.*, locations.LocationName as taluk_name');
+        $builder->join('locations', 'members.taluk = locations.ID', 'left'); // Left join to get taluk name
+        $builder->where('members.id', $id);
+        $member = $builder->get()->getRowArray();
 
         if (!$member) {
             return redirect()->to('/members')->with('error', 'Member not found!');
@@ -41,7 +54,7 @@ class MemberController extends Controller
             'district' => 'required',
             'pin' => 'required|exact_length[6]|numeric',
             'taluk' => 'required',
-            'panchayath' => 'required',
+            // 'panchayath' => 'required',
             'aadhar' => 'required|exact_length[12]|numeric',
             'photo' => 'uploaded[photo]|max_size[photo,2048]|is_image[photo]|mime_in[photo,image/jpg,image/jpeg,image/png]',
         ]);
@@ -69,7 +82,7 @@ class MemberController extends Controller
             'district' => $this->request->getPost('district'),
             'pin' => $this->request->getPost('pin'),
             'taluk' => $this->request->getPost('taluk'),
-            'panchayath' => $this->request->getPost('panchayath'),
+            'panchayath' => "NA",//$this->request->getPost('panchayath'),
             'photo' => $newFileName,
             'aadhar' => $this->request->getPost('aadhar'),
         ];

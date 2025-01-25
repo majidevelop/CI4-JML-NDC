@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Member Registration</title>
+   
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,14 +14,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            /* height: 100vh; */
         }
         .form-container {
             background: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            /* width: 400px; */
         }
         .form-container h2 {
             text-align: center;
@@ -39,9 +40,10 @@
         .form-container input[type="email"],
         .form-container input[type="password"],
         .form-container input[type="file"],
-        .form-container input[type="tel"] {
+        .form-container input[type="tel"],
+        .form-container select {
             width: 100%;
-            padding: 10px;
+            padding: 10px 0px;
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 14px;
@@ -67,20 +69,22 @@
     </style>
 </head>
 <body>
-    <div>
-    <?php if (session()->has('errors')) : ?>
-    <div class="alert alert-danger">
-        <ul>
-            <?php foreach (session('errors') as $error) : ?>
-                <li><?= esc($error) ?></li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-<?php endif; ?>
-    </div>
+
     <div class="form-container">
         <h2>Member Registration</h2>
+        <div>
+            <?php if (session()->has('errors')) : ?>
+                <div class="alert alert-danger">
+                    <ul>
+                        <?php foreach (session('errors') as $error) : ?>
+                            <li><?= esc($error) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+        </div>
         <form action="/member/register" method="POST" enctype="multipart/form-data" >
+
             <div class="form-group">
                 <label for="name">Name</label>
                 <input type="text" id="name" name="name" required>
@@ -117,15 +121,19 @@
                 <div class="error" id="pinError"></div>
             </div>
             <div class="form-group">
-                <label for="taluk">Taluk</label>
-                <input type="text" id="taluk" name="taluk" required>
+                <select name="taluk" id="taluk" required>
+                    <option value="">Select Taluk</option>
+                    <?php foreach ($taluks as $taluk): ?>
+                        <option value="<?= esc($taluk['ID']) ?>"><?= esc($taluk['LocationName']) ?></option>
+                    <?php endforeach; ?>
+                </select>
                 <div class="error" id="talukError"></div>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="panchayath">Panchayath</label>
                 <input type="text" id="panchayath" name="panchayath" required>
                 <div class="error" id="panchayathError"></div>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label for="photo">Profile Photo</label>
                 <input type="file" id="photo" name="photo" accept="image/*" required>

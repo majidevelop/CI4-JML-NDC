@@ -11,11 +11,10 @@ class MemberController extends Controller
         // $members = $memberModel->findAll();
 
         $db = \Config\Database::connect();
-    $builder = $db->table('members');
-    $builder->select('members.*, locations.LocationName as taluk_name');
-    $builder->join('locations', 'members.taluk = locations.ID', 'left'); // Left join to include members with no taluk set
-    $members = $builder->get()->getResultArray();
-
+        $builder = $db->table('members');
+        $builder->select('members.*, locations.LocationName as taluk_name');
+        $builder->join('locations', 'members.taluk = locations.ID', 'left'); // Left join to include members with no taluk set
+        $members = $builder->get()->getResultArray();
         return view('member/list_members', ['members' => $members]);
     }
 

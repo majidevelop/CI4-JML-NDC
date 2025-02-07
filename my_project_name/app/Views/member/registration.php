@@ -101,13 +101,30 @@
                 <div class="error" id="emailError"></div>
             </div>
             <div class="form-group">
+                <label for="blood">Blood Group</label>
+                <select name="blood" id="blood" required>
+                    <option value="">Select Blood Group</option>
+                    <option value="1">A +</option>
+                    <option value="2">A -</option>
+                    <option value="3">B +</option>
+                    <option value="4">B -</option>
+                    <option value="5">AB +</option>
+                    <option value="6">AB -</option>
+                    <option value="7">O +</option>
+                    <option value="8">O -</option>
+                </select>
+                <div class="error" id="bloodError"></div>
+            </div>
+            <div class="form-group">
                 <label for="address">Address</label>
                 <input type="text" id="address" name="address" required>
                 <div class="error" id="addressError"></div>
             </div>
             <div class="form-group">
                 <label for="state">State</label>
-                <input type="text" id="state" name="state" required>
+                <select name="state" id="state" required>
+                    <option value="1">Kerala</option>
+                </select>
                 <div class="error" id="stateError"></div>
             </div>
             <div class="form-group">

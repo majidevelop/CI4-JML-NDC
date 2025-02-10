@@ -12,7 +12,10 @@ class Home extends BaseController
         $db = \Config\Database::connect();
         $builder = $db->table('locations');
         $taluks = $builder->get()->getResultArray();
+        
+        $builder = $db->table('districts');
+        $districts = $builder->get()->getResultArray();
 
-        return view('member/registration', ['taluks'=> $taluks]);
+        return view('member/registration', ['taluks'=> $taluks, 'districts' => $districts]);
     }
 }

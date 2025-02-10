@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 28, 2025 at 12:02 PM
+-- Generation Time: Feb 10, 2025 at 04:23 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,62 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_ndc`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blood_groups`
+--
+
+CREATE TABLE `blood_groups` (
+  `id` int(11) NOT NULL,
+  `name` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `blood_groups`
+--
+
+INSERT INTO `blood_groups` (`id`, `name`) VALUES
+(1, 'A +'),
+(2, 'A -'),
+(5, 'B +'),
+(6, 'B -'),
+(7, 'AB +'),
+(8, 'AB -'),
+(9, 'O +'),
+(10, 'O -');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `districts`
+--
+
+CREATE TABLE `districts` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `districts`
+--
+
+INSERT INTO `districts` (`id`, `name`) VALUES
+(4, ' Alappuzha'),
+(7, ' Ernakulam'),
+(6, ' Idukki'),
+(13, ' Kannur'),
+(14, ' Kasaragod'),
+(2, ' Kollam'),
+(5, ' Kottayam'),
+(11, ' Kozhikode'),
+(10, ' Malappuram'),
+(9, ' Palakkad'),
+(3, ' Pathanamthitta'),
+(1, ' Thiruvananthapuram'),
+(8, ' Thrissur'),
+(12, ' Wayanad');
 
 -- --------------------------------------------------------
 
@@ -131,12 +187,13 @@ CREATE TABLE `members` (
   `email` varchar(255) NOT NULL,
   `address` text NOT NULL,
   `state` varchar(100) NOT NULL,
-  `district` varchar(100) NOT NULL,
+  `district` varchar(100) DEFAULT NULL,
   `pin` varchar(6) NOT NULL,
   `taluk` varchar(100) NOT NULL,
   `panchayath` varchar(100) NOT NULL,
   `photo` varchar(255) NOT NULL,
   `aadhar` varchar(12) NOT NULL,
+  `blood` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -144,14 +201,99 @@ CREATE TABLE `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`id`, `name`, `mobile`, `email`, `address`, `state`, `district`, `pin`, `taluk`, `panchayath`, `photo`, `aadhar`, `created_at`) VALUES
-(1, 'dfq', '8089332859', 'majid.n@bimageconsulting.in', 'Test', 'KENTUCKY', 'ghj', '111111', 'ghjghj', 'ghjghj', '1737620723_85d34b5d4df8d8e0b4b7.png', '111111111111', '2025-01-23 08:25:23'),
-(2, 'dfq', '8089332859', 'majid.n@bimageconsulting.in', 'Test', 'KENTUCKY', 'ghj', '111111', 'ghjghj', 'ghjghj', '1737620904_c0a9bac8cc95521977e8.png', '111111111111', '2025-01-23 08:28:24'),
-(3, 'dfqss', '8089332859', 'majid.n@bimageconsulting.in', 'Test', 'KENTUCKY', 'ghj', '111111', '19', 'NA', '1737804344_3958a84ae3ef708ed9b8.png', '111111111111', '2025-01-25 11:25:44');
+INSERT INTO `members` (`id`, `name`, `mobile`, `email`, `address`, `state`, `district`, `pin`, `taluk`, `panchayath`, `photo`, `aadhar`, `blood`, `created_at`) VALUES
+(1, 'majid', '8089332859', 'majid@fd.co', 'a', '1', NULL, '123456', '1', 'NA', '1739102428_39d93dca9c5cc877ade4.jpg', '111111111111', 1, '2025-02-09 12:00:28');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `states`
+--
+
+CREATE TABLE `states` (
+  `id` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL,
+  `Latitude` varchar(30) NOT NULL,
+  `Longitude` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `states`
+--
+
+INSERT INTO `states` (`id`, `name`, `Latitude`, `Longitude`) VALUES
+(1, 'Andaman and Nicobar Islands', '11.7401', '92.6586\r'),
+(2, 'Andhra Pradesh', '15.9129', '79.74\r'),
+(3, 'Arunachal Pradesh', '28.218', '94.7278\r'),
+(4, 'Assam', '31.1048', '77.1734\r'),
+(5, 'Bihar', '25.0961', '85.3131\r'),
+(6, 'Chhattisgarh', '21.2787', '81.8661\r'),
+(7, 'Dadra and Nagar Haveli and Dam', '20.1809', '73.0169\r'),
+(8, 'Delhi', '28.7041', '77.1025\r'),
+(9, 'Goa', '15.2993', '74.124\r'),
+(10, 'Gujarat', '22.2587', '71.1924\r'),
+(11, 'Haryana', '29.0588', '76.0856\r'),
+(12, 'Himachal Pradesh', '31.1048', '77.1734\r'),
+(13, 'Jharkhand', '23.6102', '85.2799\r'),
+(14, 'Karnataka', '15.3173', '75.7139\r'),
+(15, 'Kerala', '10.8505', '76.2711\r'),
+(16, 'Lakshadweep', '10', '73\r'),
+(17, 'Madhya Pradesh', '22.9734', '78.6569\r'),
+(18, 'Maharashtra', '19.7515', '75.7139\r'),
+(19, 'Manipur', '24.6637', '93.9063\r'),
+(20, 'Meghalaya', '25.467', '91.3662\r'),
+(21, 'Mizoram', '23.1645', '92.9376\r'),
+(22, 'Nagaland', '26.1584', '94.5624\r'),
+(23, 'Odisha', '20.9517', '85.0985\r'),
+(24, 'Puducherry', '11.9416', '79.8083\r'),
+(25, 'Punjab', '31.1471', '75.3412\r'),
+(26, 'Rajasthan', '27.0238', '74.2179\r'),
+(27, 'Sikkim', '27.533', '88.5122\r'),
+(28, 'Tamil Nadu', '11.1271', '78.6569\r'),
+(29, 'Telangana', '18.1124', '79.0193\r'),
+(30, 'Tripura', '23.9408', '91.9882\r'),
+(31, 'Chandigarh', '30.7333', '76.7794\r'),
+(32, 'Jammu and Kashmir', '33.7782', '76.5762\r'),
+(33, 'Ladakh', '34.2996', '78.2932\r'),
+(34, 'Uttar Pradesh', '26.8467', '80.9462\r'),
+(35, 'Uttarakhand', '30.0668', '79.0193\r'),
+(36, 'West Bengal', '22.9868', '87.855\r');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`) VALUES
+(1, 'admin', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `blood_groups`
+--
+ALTER TABLE `blood_groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `districts`
+--
+ALTER TABLE `districts`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `locations`
@@ -163,11 +305,39 @@ ALTER TABLE `locations`
 -- Indexes for table `members`
 --
 ALTER TABLE `members`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_mobile` (`mobile`),
+  ADD UNIQUE KEY `unique_aadhar` (`aadhar`),
+  ADD UNIQUE KEY `unique_email` (`email`);
+
+--
+-- Indexes for table `states`
+--
+ALTER TABLE `states`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `blood_groups`
+--
+ALTER TABLE `blood_groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `districts`
+--
+ALTER TABLE `districts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `locations`
@@ -179,7 +349,19 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `states`
+--
+ALTER TABLE `states`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

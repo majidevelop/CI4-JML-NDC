@@ -106,12 +106,12 @@
                     <option value="">Select Blood Group</option>
                     <option value="1">A +</option>
                     <option value="2">A -</option>
-                    <option value="3">B +</option>
-                    <option value="4">B -</option>
-                    <option value="5">AB +</option>
-                    <option value="6">AB -</option>
-                    <option value="7">O +</option>
-                    <option value="8">O -</option>
+                    <option value="5">B +</option>
+                    <option value="6">B -</option>
+                    <option value="7">AB +</option>
+                    <option value="8">AB -</option>
+                    <option value="9">O +</option>
+                    <option value="10">O -</option>
                 </select>
                 <div class="error" id="bloodError"></div>
             </div>
@@ -127,11 +127,17 @@
                 </select>
                 <div class="error" id="stateError"></div>
             </div>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="district">District</label>
-                <input type="text" id="district" name="district" required>
+                <select name="district" id="district" required>
+                <option value="">Select District</option>
+
+                    <?php foreach($districts as $district): ?>
+                        <option value="<?= esc($district['id']) ?>"><?= esc($district['name']) ?></option>
+                        <?php endforeach; ?>
+                </select>
                 <div class="error" id="districtError"></div>
-            </div>
+            </div> -->
             <div class="form-group">
                 <label for="pin">Pin</label>
                 <input type="text" id="pin" name="pin" required>

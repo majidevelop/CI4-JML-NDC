@@ -145,9 +145,8 @@ class MemberController extends Controller
                         ->select('LocationName, RTOCodes') // Assuming column name is 'taluk_name'
                         ->where('ID', $talukId)
                         ->get();
-                        $talukName = $query->getRow() ? $query->getRow()->LocationName : 'Unknown';
-                        $rtoCode =  $query->getRow() ? $query->getRow()->RTOCodes : 'Unknown';
-            
+            $talukName = $query->getRow() ? $query->getRow()->LocationName : 'Unknown';
+            $rtoCode =  $query->getRow() ? $query->getRow()->RTOCodes : 'Unknown';
             $rtoCode = str_replace(['-', ' '], '', $rtoCode); // Remove dashes and spaces
             $formattedId = str_pad($id, 4, '0', STR_PAD_LEFT); // Make ID 4 digits (e.g., 1 → 0001)
             $firstThreeLetters = $this->getFilteredTalukCode($talukName);
@@ -162,7 +161,9 @@ class MemberController extends Controller
             $bloodName = $query->getRow() ? $query->getRow()->name : 'Unknown';
             // Store the taluk name in submitted data
             $submittedData['taluk_name'] = $talukName;
-            $submittedData['blood_name'] = $bloodName;        
+            $submittedData['blood_name'] = $bloodName;    
+            $submittedData['membershipID'] = $membershipID;        
+
             return view('member/success', ['data' => $submittedData]);
     }
 

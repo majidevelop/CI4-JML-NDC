@@ -12,7 +12,7 @@
             padding: 50px;
         }
         .card {
-            background-color: #fff;
+            background-color: #3686d0;
             border: 1px solid #ddd;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -23,7 +23,7 @@
         .card img {
             width: 100px;
             height: 100px;
-            border-radius: 50%;
+            border-radius: 1%;
             margin-bottom: 20px;
         }
         .card h2 {
@@ -76,7 +76,7 @@ td:first-child {
                 </td>
                 <td>:</td>
                 <td>
-                <p> <?= esc($data['email']) ?></p>
+                <p> <?= esc($data['membershipID']) ?></p>
 
                 </td>
             </tr>

@@ -34,6 +34,33 @@ class MemberController extends Controller
             return redirect()->to('/members')->with('error', 'Member not found!');
         }
 
+        // Load the database
+        $db = \Config\Database::connect();
+        // Fetch the taluk name from the locations table
+        $query = $db->table('locations')
+                    ->select('LocationName, RTOCodes') // Assuming column name is 'taluk_name'
+                    ->where('ID', $member['taluk'])
+                    ->get();
+        $talukName = $query->getRow() ? $query->getRow()->LocationName : 'Unknown';
+        $rtoCode =  $query->getRow() ? $query->getRow()->RTOCodes : 'Unknown';
+        $rtoCode = str_replace(['-', ' '], '', $rtoCode); // Remove dashes and spaces
+        $formattedId = str_pad($id, 4, '0', STR_PAD_LEFT); // Make ID 4 digits (e.g., 1 → 0001)
+        $firstThreeLetters = $this->getFilteredTalukCode($talukName);
+        $member['membershipID'] = $rtoCode.$firstThreeLetters.$formattedId;
+
+        // Fetch the taluk name from the locations table
+        $query = $db->table('blood_groups')
+        ->select('name') // Assuming column name is 'taluk_name'
+        ->where('id', $member['blood'])
+        ->get();
+$bloodName = $query->getRow() ? $query->getRow()->name : 'Unknown';
+// Store the taluk name in submitted data
+$member['taluk_name'] = $talukName;
+$member['blood_name'] = $bloodName;   
+
+
+
+
         return view('member/view_member', ['member' => $member]);
     }
     public function register()

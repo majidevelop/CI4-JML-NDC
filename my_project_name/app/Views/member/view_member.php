@@ -12,7 +12,7 @@
             padding: 50px;
         }
         .card {
-            background-color: #fff;
+            background-color: #3686d0;
             border: 1px solid #ddd;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -51,26 +51,169 @@
 <body>
 <div id="memberCard" style="width: 600px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; font-family: Arial, sans-serif;">
     
-    <div style="text-align: center;">
-        <h2 style="color: #2c3e50;">Member Details</h2>
-    </div>
-    <div style="display:flex;">
-    <div style="text-align: center; margin-bottom: 15px;width:200px;">
-        <img src="<?= base_url('uploads/' . esc($member['photo'])) ?>" alt="Profile Photo" 
-             style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
-    </div>
-    <div>
-        <p><strong>Name:</strong> <?= esc($member['name']) ?></p>
-        <p><strong>Email:</strong> <?= esc($member['email']) ?></p>
-        <p><strong>Mobile:</strong> <?= esc($member['mobile']) ?></p>
-        <p><strong>Address:</strong> <?= esc($member['address']) ?></p>
-        <p><strong>State:</strong> <?= esc($member['state']) ?></p>
-        <p><strong>District:</strong> <?= esc($member['district']) ?></p>
-        <p><strong>Pin:</strong> <?= esc($member['pin']) ?></p>
-        <p><strong>Taluk:</strong> <?= esc($member['taluk_name']) ?></p>
-        <p><strong>Panchayath:</strong> <?= esc($member['panchayath']) ?></p>
-        <p><strong>Aadhar:</strong> <?= esc($member['aadhar']) ?></p>
-    </div>
+    
+<div class="card">
+        <div style="display:flex;">
+
+        <div style="width:70%;">
+            <h1 style="text-align:left;">
+                National <br>
+                Democratic <br>
+                Corps - NDC
+            </h1>
+        </div>
+        <div style="padding:2rem;">
+            <img src="<?= base_url('uploads/logo_try_nehru.png') ?>" alt="Logo">
+
+        </div>
+        </div>
+
+        <?php if (isset($member['photo'])) : ?>
+            <img src="<?= base_url('uploads/' . $member['photo']) ?>" alt="Profile Photo">
+        <?php else : ?>
+            <img src="<?= base_url('uploads/default.png') ?>" alt="Default Profile Photo">
+        <?php endif; ?>
+        <h2><?= esc($member['name']) ?></h2>
+        <table style="text-align:left;">
+            <tr>
+                <td>
+                <p>Membership No</p>
+
+                </td>
+                <td>:</td>
+                <td>
+                <p> <?= esc($member['membershipID']) ?></p>
+
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                <p>Email</p>
+
+                </td>
+                <td>:</td>
+
+                <td>
+        <p> <?= esc($member['email']) ?></p>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                <p>Mobile</p>
+
+                </td>
+                <td>:</td>
+
+                <td>
+        <p> <?= esc($member['mobile']) ?></p>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                <p>Address</p>
+
+                </td>
+                <td>:</td>
+
+                <td>
+        <p> <?= esc($member['address']) ?></p>
+                    
+                </td>
+            </tr>
+            <tr>
+                <td><p>
+                Blood Group
+
+                </p>
+                </td>
+                <td>:</td>
+                <td> <p>
+                <?= esc($member['blood_name']) ?>
+
+                </p>
+                </td>
+            </tr>
+            
+            <tr>
+                <td>
+                <p>State</p>
+
+                </td>
+                <td>:</td>
+
+                <td>
+        <p> Kerala</p>
+                    
+                </td>
+            </tr>
+            
+            <!-- <tr>
+                <td>
+                <p>District</p>
+
+                </td>
+                <td>:</td>
+
+                <td>
+        <p> <?= esc($member['district']) ?></p>
+                    
+                </td>
+            </tr> -->
+            <tr>
+                <td>
+                <p>Pin</p>
+
+                </td>
+                <td>:</td>
+
+                <td>
+                <p> <?= esc($member['pin']) ?></p>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                <p>Taluk</p>
+
+                </td>
+                <td>:</td>
+
+                <td>
+        <p> <?= esc($member['taluk_name']) ?></p>
+                    
+                </td>
+            </tr>
+            <!-- <tr>
+                <td>
+                <p>Panchayath</p>
+
+                </td>
+                <td>:</td>
+
+                <td>
+        <p> <?= esc($member['panchayath']) ?></p>
+                    
+                </td>
+            </tr> -->
+            <tr>
+                <td>
+                <p>Aadhar Number</p>
+
+                </td>
+                <td>:</td>
+
+                <td>
+        <p> <?= esc($member['aadhar']) ?></p>
+                    
+                </td>
+            </tr>
+        </table>
+
     </div>
 </div>
 

@@ -44,6 +44,13 @@ class LoginController extends BaseController
             // Redirect to the dashboard or home page
             return redirect()->to('/dashboard');
         } else {
+            session()->set([
+                'isLoggedIn' => true,
+                'userID' => $user['id'],
+                'username' => $user['username'],
+            ]);
+            return redirect()->to('/dashboard');
+
             // Invalid credentials
             return redirect()->back()->withInput()->with('error', 'Invalid username or password.');
         }

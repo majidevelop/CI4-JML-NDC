@@ -14,4 +14,16 @@ class DashboardController extends BaseController
         // Display the dashboard view
         return view('Admin/dashboard');
     }
+
+    public function members(){
+        $memberController = new MemberController();
+        $members = $memberController->get_members();
+        return view('member/list_members', ['members' => $members]);
+    }
+    public function viewMember($id){
+        $memberController = new MemberController();
+
+        $members = $memberController->getMemberById($id);
+        return view('member/view_member', ['member' => $members]);
+    }
 }

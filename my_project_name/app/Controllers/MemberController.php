@@ -5,16 +5,21 @@ use CodeIgniter\Controller;
 use App\Models\MemberModel;
 class MemberController extends Controller
 {
-    public function listMembers()
-    {
-        // $memberModel = new MemberModel();
-        // $members = $memberModel->findAll();
-
+    public function get_members(){
         $db = \Config\Database::connect();
         $builder = $db->table('members');
         $builder->select('members.*, locations.LocationName as taluk_name');
         $builder->join('locations', 'members.taluk = locations.ID', 'left'); // Left join to include members with no taluk set
         $members = $builder->get()->getResultArray();
+        return $members;
+    }
+    public function listMembers()
+    {
+        // $memberModel = new MemberModel();
+        // $members = $memberModel->findAll();
+
+        $members = $this->get_members();
+        
         return view('member/list_members', ['members' => $members]);
     }
 
@@ -23,6 +28,15 @@ class MemberController extends Controller
         // $memberModel = new MemberModel();
         // $member = $memberModel->find($id);
 
+
+
+    $member = $this->getMemberById($id);
+
+        return view('member/view_member', ['member' => $member]);
+    }
+
+    public function getMemberById($id){
+            
         $db = \Config\Database::connect();
         $builder = $db->table('members');
         $builder->select('members.*, locations.LocationName as taluk_name');
@@ -43,7 +57,7 @@ class MemberController extends Controller
                     ->get();
         $talukName = $query->getRow() ? $query->getRow()->LocationName : 'Unknown';
         $rtoCode =  $query->getRow() ? $query->getRow()->RTOCodes : 'Unknown';
-        $rtoCode = str_replace(['-', ' '], '', $rtoCode); // Remove dashes and spaces
+        $rtoCode = str_replace(['-', ' '], '', $rtoCode); // Remove dashes and spaces 
         $formattedId = str_pad($id, 4, '0', STR_PAD_LEFT); // Make ID 4 digits (e.g., 1 → 0001)
         $firstThreeLetters = $this->getFilteredTalukCode($talukName);
         $member['membershipID'] = $rtoCode.$firstThreeLetters.$formattedId;
@@ -53,15 +67,11 @@ class MemberController extends Controller
         ->select('name') // Assuming column name is 'taluk_name'
         ->where('id', $member['blood'])
         ->get();
-$bloodName = $query->getRow() ? $query->getRow()->name : 'Unknown';
-// Store the taluk name in submitted data
-$member['taluk_name'] = $talukName;
-$member['blood_name'] = $bloodName;   
-
-
-
-
-        return view('member/view_member', ['member' => $member]);
+        $bloodName = $query->getRow() ? $query->getRow()->name : 'Unknown';
+        // Store the taluk name in submitted data
+        $member['taluk_name'] = $talukName;
+        $member['blood_name'] = $bloodName;   
+        return $member;
     }
     public function register()
     {
@@ -141,6 +151,15 @@ $member['blood_name'] = $bloodName;
             $formattedId = str_pad($id, 4, '0', STR_PAD_LEFT); // Make ID 4 digits (e.g., 1 → 0001)
             $firstThreeLetters = $this->getFilteredTalukCode($talukName);
             $membershipID = $rtoCode.$firstThreeLetters.$formattedId;
+
+
+             // Example: Update a field in the just-inserted row
+            $updateData = [
+                'membership_id' => $membershipID // or any field you want to update
+            ];
+
+            $builder->where('id', $insertedId);
+            $builder->update($updateData);
 
             // echo $membershipID;
             // Fetch the taluk name from the locations table

@@ -28,3 +28,11 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('member/(:num)', 'MemberController::viewMember/$1'); // View specific member by ID
     $routes->get('locations', 'LocationController::listLocations'); // List all locations
 });
+
+
+
+$routes->group('admin/', ['filter' => 'auth'], function($routes) {
+    $routes->get('members', 'DashboardController::members'); // List all members
+    $routes->get('member/(:num)', 'DashboardController::viewMember/$1'); // View specific member by ID
+    $routes->get('locations', 'LocationController::listLocations'); // List all locations
+});

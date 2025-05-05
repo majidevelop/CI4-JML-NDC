@@ -54,7 +54,7 @@
                     <td><?= esc($member['email']) ?></td>
                     <td><?= esc($member['mobile']) ?></td>
                     <td>
-                        <a href="<?= base_url('member/' . $member['id']) ?>" class="btn-view">View</a>
+                        <a href="<?= base_url('admin/member/' . $member['id']) ?>" class="btn-view">View</a>
                     </td>
                 </tr>
             <?php endforeach; ?>

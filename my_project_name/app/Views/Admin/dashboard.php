@@ -7,6 +7,11 @@
 <body>
     <h1>Welcome, <?= session()->get('username') ?>!</h1>
     <p>You are now logged in.</p>
+    <p>
+        <a href="admin/members">
+            members
+        </a>
+    </p>
     <a href="/logout">Logout</a>
 </body>
 </html>

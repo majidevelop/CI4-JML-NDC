@@ -43,6 +43,8 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Mobile</th>
+                <th>Taluk</th>
+                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -53,8 +55,23 @@
                     <td><?= esc($member['name']) ?></td>
                     <td><?= esc($member['email']) ?></td>
                     <td><?= esc($member['mobile']) ?></td>
+                    <td><?= esc($member['taluk_name']) ?></td>
+                    <td>
+                    <?= esc($member['status'] == 1 ? 'Approved' : 'Pending') ?>
+                    </td>
+
                     <td>
                         <a href="<?= base_url('admin/member/' . $member['id']) ?>" class="btn-view">View</a>
+                        <?php 
+                        if($member['status'] != 1){
+                        ?>
+
+                            <a href="<?= base_url('admin/member/approve/' . $member['id']) ?>" class="btn-view">Approve</a> 
+                            <?php 
+
+                        }
+                        ?>
+
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -234,6 +234,29 @@ class MemberController extends Controller
     
         return strtoupper($filtered);
     }
+
+
+    public function approveMember($id){
+        $db = \Config\Database::connect();
+        $validation = \Config\Services::validation();
+        $builder = $db->table('members');
+        if ($id) {
+        
+            // Example: Update a field in the just-inserted row
+            $updateData = [
+                'status' => '1' // or any field you want to update
+            ];
+        
+            $builder->where('id', $id);
+            $builder->update($updateData);
+            return redirect()->to('admin/members')->with('message', 'Member Approved successfully.');
+
+        }else{
+            return redirect()->to('admin/members')->with('message', 'Approval Error.');
+
+        }
+    }
+
 }
 
 ?>
